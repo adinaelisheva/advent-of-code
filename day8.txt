@@ -1,5 +1,0 @@
-plain text: 6489 chars
-after replacement: 5118
-
-part 2:
-after replacement: 8606
