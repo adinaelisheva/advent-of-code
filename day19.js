@@ -28,6 +28,7 @@ console.log('Found ' + Object.keys(resMap).length + ' molecules');
 var gMinSteps = Infinity;
 var stepsFromHere = {};
 
+//after some figuring things out (and looking on reddit) all you need to do for part 2 is count
 med = med.replace(/Rn/g,'(');
 med = med.replace(/Ar/g,')');
 med = med.replace(/Y/g,',');
