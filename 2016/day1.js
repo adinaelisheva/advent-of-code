@@ -77,4 +77,4 @@ for(var i = 0; i < input.length && !done; i++) {
   }
 }
 
-console.log("Part 1: " + (Math.abs(pos[0]) + Math.abs(pos[1])));
+console.log("Part 2: " + (Math.abs(pos[0]) + Math.abs(pos[1])));
