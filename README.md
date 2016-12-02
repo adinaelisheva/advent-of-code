@@ -1,4 +1,4 @@
-My solutions to the 2015 [Advent of Code](http://adventofcode.com/) puzzles.
+My solutions to the [Advent of Code](http://adventofcode.com/) puzzles.
 
 All solutions fairly naive and done in JS, run in node.
 
