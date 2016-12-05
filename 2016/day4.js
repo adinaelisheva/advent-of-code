@@ -6,7 +6,6 @@ var total = 0;
 
 for (var i = 0; i < input.length; i++) {
   var match = re.exec(input[i]);
-  console.log(match);
   var p2info = [match[1],match[3]];
   var alphabet = match[1].replace(/-/g,'');
   var id = match[3];
@@ -34,3 +33,40 @@ for (var i = 0; i < input.length; i++) {
 }
 console.log("part 1: " + total);
 
+num2char = 'abcdefghijklmnopqrstuvwxyz';
+char2num = {};
+
+for(var i = 0; i < num2char.length; i++) {
+  var char = num2char[i];
+  char2num[char] = i;
+}
+
+for(var i = 0; i < reals.length; i++) {
+  
+  var name = "";
+  var room = reals[i][0];
+  var sector = reals[i][1];
+
+  var debug = "rotating room " + room + ", sector " + sector + ": ";
+
+  for(var j = 0; j < room.length; j++) {
+    var char = room[j];
+
+    if(char === '-') {
+      name += " ";
+      continue;
+    }
+
+    debug += char; 
+
+    var x = char2num[char];
+    debug += "(#" + x + ")-->";
+    x = (x + sector) % 26;
+    debug += x;
+    name += num2char[x];
+    debug += "(#" + num2char[x] + ")";
+  }
+  console.log(debug);
+  console.log(sector + ": " + name);
+
+}
