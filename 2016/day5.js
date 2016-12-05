@@ -1,6 +1,6 @@
 var print = function(str,arr2,done) {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
-  if(done) { console.log('calculating passwords...'); }
+  if(!done) { console.log('calculating passwords...'); }
   var arr1 = str.split('');
   var formStr = function(arr) {
     var str = '[';
@@ -35,7 +35,7 @@ var day5 = function() {
       }
     }
   }
-  print(pw,pw2,false); 
+  print(pw,pw2,true); 
 }
 
 //below defines md5 stuff for JS
