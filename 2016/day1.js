@@ -38,7 +38,7 @@ for(var i = 0; i < input.length; i++) {
   }
 }
 
-console.log("Part 1: " + (Math.abs(pos[0]) + Math.abs(pos[1])));
+console.log('Final position after following all directions: ' + (Math.abs(pos[0]) + Math.abs(pos[1])));
 
 
 pos = [0,0];
@@ -68,7 +68,7 @@ for(var i = 0; i < input.length && !done; i++) {
   for (var j = 0; j < amount; j++) {
     pos[posInd] += mult;
     //look for a place we see twice
-    var key = "" + pos[0] + pos[1]; 
+    var key = '' + pos[0] + pos[1]; 
     if(seen[key]) {
       done = true;
       break;
@@ -77,4 +77,4 @@ for(var i = 0; i < input.length && !done; i++) {
   }
 }
 
-console.log("Part 2: " + (Math.abs(pos[0]) + Math.abs(pos[1])));
+console.log('First location visited twice: ' + (Math.abs(pos[0]) + Math.abs(pos[1])));

@@ -31,7 +31,7 @@ for (var i = 0; i < input.length; i++) {
    }
 
 }
-console.log("part 1: " + total + "\npart 2:");
+console.log('Sum of sector ids for real rooms is ' + total + '\nList of room names:');
 
 num2char = 'abcdefghijklmnopqrstuvwxyz';
 char2num = {};
@@ -43,7 +43,7 @@ for(var i = 0; i < num2char.length; i++) {
 
 for(var i = 0; i < reals.length; i++) {
   
-  var name = "";
+  var name = '';
   var room = reals[i][0];
   var sector = Number(reals[i][1]);
 
@@ -51,7 +51,7 @@ for(var i = 0; i < reals.length; i++) {
     var char = room[j];
 
     if(char === '-') {
-      name += " ";
+      name += ' ';
       continue;
     }
 
@@ -59,6 +59,6 @@ for(var i = 0; i < reals.length; i++) {
     x = (x + sector) % 26;
     name += num2char[x];
   }
-  console.log(sector + ": " + name);
+  console.log(sector + ': ' + name);
 
 }

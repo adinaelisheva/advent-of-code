@@ -10,7 +10,7 @@ for (var i = 0; i < input.length; i++){
   valid += validate(t[0],t[1],t[2]);
 }
 
-console.log("part 1: " + valid + " valid triangles.");
+console.log(valid + ' valid triangles in rows.');
 
 valid = 0;
 
@@ -23,4 +23,4 @@ for (var i = 0; i < input.length-1; i+=3){
   valid += validate(t1[2],t2[2],t3[2]);
 }
 
-console.log("part 2: " + valid + " valid triangles.");
+console.log(valid + ' valid triangles in columns.');
