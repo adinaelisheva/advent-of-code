@@ -10,7 +10,6 @@ for(var i = 0; i < 8; i++) {
 }
 
 for(var i = 0; i < input.length; i++) { 
-  console.log('looking at ' + input[i]);
   for(var j = 0; j < input[i].length; j++) {
     var c = input[i][j];
     dicts[j][c] = dicts[j][c] ? dicts[j][c] + 1 : 1;
@@ -21,4 +20,21 @@ for(var i = 0; i < input.length; i++) {
   }
 }
 
-console.log(maxLetters.join(''));
+//now find mins
+var minStr = '';
+for(var i = 0; i < 8; i++) {
+  var letters = Object.keys(dicts[i]);
+  var min = Infinity;
+  var minLetter;
+  for (var j = 0; j < letters.length; j++) {
+    var count = dicts[i][letters[j]];
+    if (count < min) {
+      min = count;
+      minLetter = letters[j];
+    }
+  }
+  minStr += minLetter;
+}
+
+console.log('Most common letters:  ' + maxLetters.join(''));
+console.log('Least common letters: ' + minStr);
