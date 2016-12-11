@@ -32,8 +32,6 @@ for(var i = 0; i < input.length; i++) {
   }
 }
 
-var product;
-
 while(botsToHandle.length > 0) {
   var id = botsToHandle.pop();
   var bot = robots[id];
@@ -60,11 +58,8 @@ while(botsToHandle.length > 0) {
     console.log('robot ' + id + ' is comparing 17 and 61');
   }
 
-  if(outputs[0] !== undefined && outputs[1] !== undefined && outputs[2] !== undefined) {
-    product = outputs[0] * outputs[1] * outputs[2]
-  }
-
   robots[id] = [];
 }
 
+var product = outputs[0] * outputs[1] * outputs[2];
 console.log('multiplying outputs 0, 1, and 2 gets you ' + product);
