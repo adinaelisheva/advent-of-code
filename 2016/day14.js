@@ -1,7 +1,7 @@
-var findRepeats = function(n,str,first) {
+var findRepeats = function(n,str) {
+  //double pentuples never happen (in practice), so return the first one always
   var curChar = '';
   var count = 0;
-  if(!first) { var ret = []; } 
   for(var i = 0; i < str.length; i++) {
     if(str[i] !== curChar) {
       curChar = str[i];
@@ -10,17 +10,9 @@ var findRepeats = function(n,str,first) {
       count++;
     }
     if(count === n) {
-      if(first) {
-        //return the first n-tuplet we find
-        return curChar;
-      } else {
-        //save it to return all n-tuplets
-        ret.push(curChar);
-      }
+      //return the first n-tuplet we find
+      return curChar;
     }
-  }
-  if(!first) {
-    return ret;
   }
 }
 
@@ -43,16 +35,15 @@ var day14 = function(p2) {
     var data = md5(salt + i);
     if(p2) { data = stretch(data); }
     var c;
-    if(c = findRepeats(3,data,true)) {
+    if(c = findRepeats(3,data)) {
       if(triplets[c]) {
         triplets[c].push(i);
       } else {
         triplets[c] = [i];
       }
     } 
-    var fives = findRepeats(5,data,false);
-    for(var j = 0; j < fives.length; j++) {
-      c = fives[j];
+    var c = findRepeats(5,data);
+    if(c) {
       triplist = triplets[c];
       for(var k = 0; k < triplist.length; k++) {
         if(triplist[k] > i - 1000 && triplist[k] < i) {
