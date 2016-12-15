@@ -46,10 +46,10 @@ var day14 = function(p2) {
     if(c) {
       triplist = triplets[c];
       for(var k = 0; k < triplist.length; k++) {
-        if(triplist[k] > i - 1000 && triplist[k] < i) {
+        if(triplist[k] > i - 1000 && triplist[k] < i && keys.indexOf(triplist[k]) === -1) {
           keys.push(triplist[k]);
           keys.sort(function(a,b) { return a - b; });
-          if(!found) { console.log(keys.length); }
+          if(!found) { console.log(keys.length); } //counter to show work is being done
           if(keys.length >= 64 && keys[63] < i - 1000){
             var addition = p2 ? 'after stretching, ' : ''
             if(!found) { console.log(addition + '64th key is at index ' + keys[63]); }
