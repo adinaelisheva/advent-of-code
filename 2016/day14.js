@@ -35,11 +35,11 @@ var salt = 'cuanljph';
 
 var day14 = function(p2) {
 
-  var i = 0;
+  var found = false;
   var keys = [];
   var triplets = {};
 
-  while(keys.length < 64) {
+  for(var i = 0; !found; i++){
     var data = md5(salt + i);
     if(p2) { data = stretch(data); }
     var c;
@@ -58,16 +58,16 @@ var day14 = function(p2) {
         if(triplist[k] > i - 1000 && triplist[k] < i) {
           keys.push(triplist[k]);
           keys.sort(function(a,b) { return a - b; });
-          console.log(keys.length);
-          if(keys.length === 64){
+          if(!found) { console.log(keys.length); }
+          if(keys.length >= 64 && keys[63] < i - 1000){
             var addition = p2 ? 'after stretching, ' : ''
-            console.log(addition + '64th key is at index ' + keys[63]);
+            if(!found) { console.log(addition + '64th key is at index ' + keys[63]); }
+            found = true;
           }
         }
       }
     }
 
-    i++;
   }
 }
 
