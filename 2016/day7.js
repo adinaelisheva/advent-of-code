@@ -56,5 +56,5 @@ for(var i = 0; i < input.length; i++) {
   }
 }
 
-console.log(tlsCount + " IPs support TLS");
-console.log(sslCount + " IPs support SSL");
+console.log(tlsCount + ' IPs support TLS');
+console.log(sslCount + ' IPs support SSL');

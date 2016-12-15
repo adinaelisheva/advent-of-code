@@ -114,7 +114,7 @@ var run = function(queue,totalItems) {
   while(queue.length > 0) {
     var building = queue.shift();
     if(building[4].length === totalItems) {
-      console.log("Succeeded in " + building.steps + " steps");
+      console.log('Succeeded in ' + building.steps + ' steps');
       break;
     }
     queue = queue.concat(createAllNextBuildings(building));
