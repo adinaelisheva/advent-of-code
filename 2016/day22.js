@@ -30,11 +30,13 @@ console.log(viable + ' viable pairs found');
 var FREE = 0;
 var FIXED = 1;
 var STANDARD = 2;
-var cellChars = ['_','#','.'];
+var GOAL = 3;
+var cellChars = ['_','#','.','G'];
 var graph = [];
 for(var i = 0; i <= maxX; i++) {
   graph[i] = [];
 }
+var freeLoc;
 for(var i = 0; i < input.length; i++){
   var x = input[i][0][0];
   var y = input[i][0][1];
@@ -44,19 +46,20 @@ for(var i = 0; i < input.length; i++){
   } else if(input[i][1] >= freeSpace) {
     //it has too much stuff to move
     graph[x][y] = FIXED;
+  } else if (x === maxX && y === 0) {
+    graph[x][y] = GOAL;
   } else {
     graph[x][y] = STANDARD;
   }
 }
 
 var printGraph = function(graph) {
+  console.log('\n\n');
   for(var i = 0; i <= maxY; i++) {
     var line = '';
     for(var j = 0; j <= maxX; j++) {
       if(i === 0 && j === 0) {
         line += 'S';
-      } else if (j === maxX && i === 0) {
-        line += 'G';
       } else {
         line += cellChars[graph[j][i]];
       }
@@ -65,12 +68,47 @@ var printGraph = function(graph) {
   }
 }
 
-var getHash = function(graph){
-  var hash = '';
-  for(var i = 0; i <= maxX; i++) {
-    for(var j = 0; j <= maxY; j++) {
-      hash += graph[i][j];
-    }
-  }
-  return hash;
-}
+printGraph(graph);
+//output from printing:
+// S....................................G
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......################################
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ......................................
+// ................_.....................
+// ......................................
+// ......................................
+
+//now, some counting:
+
+//10 steps to get the _ to right below the # line
+//11 steps to go left just past the #
+//2 steps to go above the #
+//31 steps to go to the next-to-last column
+//11 steps to get next the G, eg: ...._G
+//1 step to swap them into ....G_
+//total: this is 66 steps
+
+//note: it's 4 steps to go from G_ to _G, and one to go from _G to G_
+//so in total, to get from .G_ to G_. is 5
+
+//there are 36 spots between the G and the S now, so in total, another 180 steps
+//so in all, 246 steps to get the goal data to the starting point!
