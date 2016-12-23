@@ -54,7 +54,7 @@ for(var i = 0; i < input.length; i++){
 }
 
 var printGraph = function(graph) {
-  console.log('\n\n');
+  console.log('\n');
   for(var i = 0; i <= maxY; i++) {
     var line = '';
     for(var j = 0; j <= maxX; j++) {
