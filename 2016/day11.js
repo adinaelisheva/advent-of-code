@@ -109,19 +109,28 @@ var createAllNextBuildings = function(building) {
   return ret; 
 }
 
+var ret;
 var run = function(queue,totalItems) {
   seens = {};
   while(queue.length > 0) {
     var building = queue.shift();
     if(building[4].length === totalItems) {
-      console.log('Succeeded in ' + building.steps + ' steps');
+      ret = 'Succeeded in ' + building.steps + ' steps';
       break;
     }
     queue = queue.concat(createAllNextBuildings(building));
   }
 }
-
+var d1 = new Date();
 run([part1Building],10);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);
+
+d1 = new Date();
 run([part2Building],14);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);
 
 

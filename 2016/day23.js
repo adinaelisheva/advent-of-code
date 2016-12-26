@@ -75,7 +75,19 @@ var run = function(registers,input) {
   return registers;
 }
 
+var d1 = new Date();
 var registers = run({a:7,b:0,c:0,d:0},input1);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
 console.log('With 7 eggs, register a has value ' + registers['a']);
+
+d1 = new Date();
 var registers = run({a:12,b:0,c:0,d:0},input2);
+d2 = new Date();
+//parse part 2 into mins and secs since it's long-running
+var secs = (d2.getTime() - d1.getTime())/1000;
+var mins = Math.floor(secs/60);
+secs = secs - (mins*60);
+secs = Math.floor(secs * 1000)/1000; //chop off trailing digits
+console.log('\n'+mins+'m'+secs+'s');
 console.log('With 12 eggs, register a has value ' + registers['a']);

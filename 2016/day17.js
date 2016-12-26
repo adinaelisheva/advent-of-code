@@ -6,6 +6,7 @@ var isOpen = function(char) {
 }
 
 var day17 = function() {
+  var d1 = new Date();
   //items in queue are [path so far, pair storing current pos]
   var queue = [[seed,[0,0]]];
   var foundShortestPath = false;
@@ -19,6 +20,8 @@ var day17 = function() {
     if(coords[0] === 3 && coords[1] === 3 ){
       var subPath = path.substring(seed.length);
       if(!foundShortestPath) {
+        var d2 = new Date();
+        console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
         console.log('Shortest path is ' + subPath);
         foundShortestPath = true;
       }
@@ -42,6 +45,8 @@ var day17 = function() {
       };
     }
   }
+  d2 = new Date();
+  console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
   console.log('Longest path is ' + longestLength + ' steps long.');
 }
 

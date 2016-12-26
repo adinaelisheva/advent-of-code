@@ -1,3 +1,4 @@
+var d1 = new Date();
 var seen = {};
 var lessThanFifty = {};
 
@@ -46,6 +47,8 @@ while(queue.length > 0) {
   }
 
   if(pos[0] === goal[0] && pos[1] === goal[1]) {
+    d2 = new Date();
+    console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
     console.log('Shortest path to goal is ' + pos[2]);
     console.log('Unique positions reached in under 50 steps: ' + Object.keys(lessThanFifty).length );
     break;

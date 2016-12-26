@@ -26,10 +26,10 @@ var stretch = function(hash) {
 var salt = 'cuanljph';
 
 var day14 = function(p2) {
-
   var found = false;
   var keys = [];
   var triplets = {};
+  var ret;
 
   for(var i = 0; !found; i++){
     var data = md5(salt + i);
@@ -52,7 +52,7 @@ var day14 = function(p2) {
           if(!found) { console.log(keys.length); } //counter to show work is being done
           if(keys.length >= 64 && keys[63] < i - 1000){
             var addition = p2 ? 'after stretching, ' : ''
-            if(!found) { console.log(addition + '64th key is at index ' + keys[63]); }
+            if(!found) { ret = addition + '64th key is at index ' + keys[63]; }
             found = true;
           }
         }
@@ -60,6 +60,7 @@ var day14 = function(p2) {
     }
 
   }
+  return ret;
 }
 
 //below defines md5 stuff for JS
@@ -249,5 +250,14 @@ if (md5('hello') != '5d41402abc4b2a76b9719d911017c592') {
     }
 }
 
-day14();
-day14(true);
+var d1 = new Date();
+var ret = day14();
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);
+
+d1 = new Date();
+ret = day14(true);
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);

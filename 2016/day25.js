@@ -1,3 +1,4 @@
+var d1 = new Date();
 var input = ['cpy a d','cpy 11 c','cpy 231 b','inc d','dec b','jnz b -2','dec c','jnz c -5','cpy d a','jnz 0 0','cpy a b','cpy 0 a','cpy 2 c','jnz b 2','jnz 1 6','dec b','dec c','jnz c -4','inc a','jnz 1 -7','cpy 2 b','jnz c 2','jnz 1 4','dec b','dec c','jnz 1 -4','jnz 0 0','out b','jnz a -19','jnz 1 -21'];
 
 regNames = ['a','b','c','d'];
@@ -48,9 +49,14 @@ var run = function(registers) {
   return true;
 }
 
+var ret;
 for(var i = 1; ; i++) {
   if(run({a:i,b:0,c:0,d:0})) { 
-    console.log('Initialize a to ' + i);
+    ret = i;
     break;
   }
 }
+
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('Initialize a to ' + ret);

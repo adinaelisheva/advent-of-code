@@ -23,7 +23,6 @@ var rotateStr = function(str,direction,amount,part1) {
 
 var run = function(str,part1,input) {
   for(var i = 0; i < input.length; i++) {
-    console.log(input[i]);
     if(m = swapPos.exec(input[i])) {
       var m1 = Number(m[1]);
       var m2 = Number(m[2]);
@@ -81,11 +80,19 @@ var run = function(str,part1,input) {
         str = str.substring(0,p2) + c + str.substring(p2,p1) + str.substring(p1+1);
       }
     }
-    console.log(str);
   }
   return str;
 }
 
-console.log('my fake password is ' + run('abcdefgh',true,input));
-console.log('the real password is ' + run('fbgdceah',false,input.reverse()));
+var d1 = new Date();
+var ret = run('abcdefgh',true,input);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('my fake password is ' + ret);
+
+d1 = new Date();
+ret = run('fbgdceah',false,input.reverse());
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('the real password is ' + ret);
 

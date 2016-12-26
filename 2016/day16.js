@@ -26,5 +26,14 @@ var run = function(str,len) {
   return checksum;
 }
 
-console.log(run('10010000000110000',272));
-console.log(run('10010000000110000',35651584));
+var d1 = new Date();
+var ret = run('10010000000110000',272);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);
+
+d1 = new Date();
+ret = run('10010000000110000',35651584);
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);

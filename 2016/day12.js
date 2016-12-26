@@ -37,7 +37,14 @@ var run = function(registers) {
   return registers;
 }
 
+var d1 = new Date();
 var registers = run({a:0,b:0,c:0,d:0});
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
 console.log('At first, register a has value ' + registers['a']);
+
+d1 = new Date();
 var registers = run({a:0,b:0,c:1,d:0});
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
 console.log('After initializing c, register a has value ' + registers['a']);

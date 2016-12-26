@@ -41,9 +41,16 @@ var getCode = function() {
   return code;
 }
 
-console.log('Simple 9-digit keypad: ' + getCode());
+var d1 = new Date();
+var code = getCode();
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('Simple 9-digit keypad: ' + code);
 
+d1 = new Date();
 keys = [['X','X',1,'X','X'],['X',2,3,4,'X'],[5,6,7,8,9],['X','A','B','C','X'],['X','X','D','X','X']];
 coords = [2,2]; 
-
-console.log('Diamond-shaped 13-digit keypad: ' + getCode());
+code = getCode();
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('Diamond-shaped 13-digit keypad: ' + code);

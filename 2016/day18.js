@@ -27,5 +27,14 @@ var run = function(totalRows) {
   return totalSafe;
 }
 
-console.log('A small room has ' + run(40) + ' safe spots');
-console.log('A large room has ' + run(400000) + ' safe spots');
+var d1 = new Date();
+var ret = run(40);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('A small room has ' + ret + ' safe spots');
+
+d1 = new Date();
+var ret = run(400000);
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log('A large room has ' + ret + ' safe spots');

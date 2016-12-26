@@ -16,6 +16,7 @@ var run = function(startNode,part1) {
   var queue = [startNode];
   var seen = {};
   var done = false;
+  var ret;
 
   var tryToAddPos = function(x,y,path,dir,points) {
     if(input[x][y] === '#') { return; }
@@ -35,9 +36,9 @@ var run = function(startNode,part1) {
     if(found === numPoints && (part1 || point===0)) {
       //found all spots!
       if(part1) {
-        console.log('found all points in ' + p.length + ' steps');
+        ret = 'found all points in ' + p.length + ' steps';
       } else {
-        console.log('got back to 0 in ' + p.length + ' steps');
+        ret = 'got back to 0 in ' + p.length + ' steps';
       }
       done = true;
       return;
@@ -60,6 +61,7 @@ var run = function(startNode,part1) {
     tryToAddPos(pos[0],pos[1]+1,path,'right', points.slice());
     tryToAddPos(pos[0],pos[1]-1,path,'left', points.slice());
   }
+  return ret;
 };
 
 var getStartNode = function() {
@@ -71,8 +73,17 @@ var getStartNode = function() {
   return start;
 }
 //part 1
+var d1 = new Date();
 var start = getStartNode();
 start[2] = true;
-run(start,true);
+var ret = run(start,true);
+var d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);
+
 //part 2
-run(getStartNode(),false);
+d1 = new Date();
+ret = run(getStartNode(),false);
+d2 = new Date();
+console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+console.log(ret);

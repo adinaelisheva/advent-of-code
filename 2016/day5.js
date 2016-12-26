@@ -1,6 +1,12 @@
+var d1;
 var print = function(str,arr2,done) {
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
-  if(!done) { console.log('calculating passwords...'); }
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+  if(!done) { 
+    console.log('calculating passwords...'); 
+  } else {
+    var d2 = new Date();
+    console.log('\n'+(d2.getTime() - d1.getTime())/1000 + 's');
+  }
   var arr1 = str.split('');
   var formStr = function(arr) {
     var str = '[';
@@ -19,6 +25,8 @@ var day5 = function() {
   var pw = '';
   var pw2 = [];
   var pw2found = 0;
+
+  d1 = new Date();
 
   for(var i = 0; pw2found < 8; i++) {
     var hash = md5(door + i);
@@ -224,5 +232,6 @@ if (md5('hello') != '5d41402abc4b2a76b9719d911017c592') {
         return (msw << 16) | (lsw & 0xFFFF);
     }
 }
+
 
 day5();
