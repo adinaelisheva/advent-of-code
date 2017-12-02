@@ -9,7 +9,7 @@ sum = (text[0] == text[-1]) ? text[0].to_i : 0
     sum = sum + text[i].to_i
   end
 end
-puts "part 1 sum is #{sum}"
+puts "part 1 captcha is #{sum}"
 
 sum = 0
 dist = text.length/2
@@ -19,4 +19,4 @@ dist = text.length/2
     sum = sum + text[i].to_i
   end
 end
-puts "part 2 sum is #{sum}"
+puts "part 2 captcha is #{sum}"
