@@ -1,5 +1,5 @@
 text = ''
-File.open('input1a','r') do |f|
+File.open('input1','r') do |f|
   text = f.readlines[0]
 end
 
