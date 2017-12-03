@@ -14,8 +14,8 @@ def part1(num)
   return root-1 if (n==num)
 
   # it's not on the starting corner, so it must be in the ring
-  #next find the side length and corners of the ring
-  s = root + 2 #next biggest odd root
+  # next find the side length and corners of the ring
+  s = root + 2 # next biggest odd root
   c1 = n+(s-1)
   c2 = n+2*(s-1)
   c3 = n+3*(s-1)
@@ -26,7 +26,7 @@ def part1(num)
 
   avg = 0
   if (num < c1)
-    avg = (n + c1)/2 #n is the secret 0th corner
+    avg = (n + c1)/2 # n is the secret 0th corner
   elsif (num < c2)
     avg = (c1 + c2)/2
   elsif (num < c3)
