@@ -26,7 +26,7 @@ def part1(num)
 
   avg = 0
   if (num < c1)
-    avg = (n + c1)/2 #n is the secret 0th
+    avg = (n + c1)/2 #n is the secret 0th corner
   elsif (num < c2)
     avg = (c1 + c2)/2
   elsif (num < c3)
