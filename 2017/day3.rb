@@ -56,6 +56,7 @@ def findsum(grid, x, y)
   return sum
 end
 
+# Print grid. Left this in because it helped me a lot to debug
 def pg(grid,i) 
   return if i > 30
   puts "grid for ##{i}"
@@ -76,7 +77,7 @@ def part2(num)
   #make it 50x50 i'm sure that's enough
   (0...12).each do |i| 
     grid[i] = []
-    grid[i][12] = 0
+    grid[i][12] = nil #this makes printing look nicer
   end 
   #seed the grid with ring 1
   grid[5][5] = 5
@@ -96,9 +97,7 @@ def part2(num)
 
   #starting values for first ring
   root = 3
-
-  coord=[x,y]
-
+  
   while true
     c = findRingCorners(root, i)
     while i < c[1] - 1
