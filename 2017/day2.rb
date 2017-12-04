@@ -1,6 +1,6 @@
 sum = 0
-File.open('input2','r') do |f|
-  text = f.readlines.each do |l|
+File.open('day2input','r') do |f|
+  f.readlines.each do |l|
     smallest = Float::INFINITY
     largest = 0
     l.split.each do |num|
@@ -17,8 +17,8 @@ end
 puts "checksum is #{sum}"
 
 sum = 0
-File.open('input2','r') do |f|
-  text = f.readlines.each do |l|
+File.open('day2input','r') do |f|
+  f.readlines.each do |l|
     l.split.each do |num1|
       l.split.each do |num2|
         div = (num1.to_f/num2.to_f)
