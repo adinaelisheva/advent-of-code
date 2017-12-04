@@ -79,7 +79,8 @@ def part2(num)
     grid[i] = []
     grid[i][12] = nil #this makes printing look nicer
   end 
-  #seed the grid with ring 1
+
+  #seed the grid with ring 1 (it breaks without > 1 starting number)
   grid[5][5] = 5
   grid[6][5] = 4
   grid[7][5] = 2
@@ -94,10 +95,8 @@ def part2(num)
   x = 8
   y = 7
   i = 9
-
-  #starting values for first ring
   root = 3
-  
+
   while true
     c = findRingCorners(root, i)
     while i < c[1] - 1
