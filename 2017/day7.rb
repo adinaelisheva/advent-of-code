@@ -95,4 +95,4 @@ while root.parent != nil
 end
 puts "root is named #{root.title}"
 
-puts "unbalanced node should weight #{root.findUnbalanced}"
+puts "unbalanced node should weigh #{root.findUnbalanced}"
