@@ -39,7 +39,15 @@ def hashRound(input)
   return $list
 end
 
-def hash(input)
+def stringToNums(str)
+  ret = []
+  str.each_char do |c|
+    ret.push c.ord
+  end
+  return ret + [17, 31, 73, 47, 23]
+end
+
+def hashFn(input)
   hashSetup()
   (0...64).each do 
     hashRound(input)
@@ -56,8 +64,7 @@ def hash(input)
   end
   ans = ""
   densehash.each do |d|
-    hex = d.to_s(16)
-    hex = hex.length == 2 ? hex : '0' + hex
+    hex = d.to_s(16).rjust(2,'0')
     ans = ans + hex
   end
   return ans
