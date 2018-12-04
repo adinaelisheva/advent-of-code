@@ -22,6 +22,7 @@ for line in lines:
 doubleclaimed = 0
 seen = {}
 doubleseen = {}
+notseen = ""
 for k,claim in claims.items():
   for i in range(claim["x"], claim["x"] + claim["w"]):
     for j in range(claim["y"], claim["y"] + claim["h"]):
@@ -33,3 +34,17 @@ for k,claim in claims.items():
       seen[coord] = True
 
 print(f"{doubleclaimed} locations are claimed more than once")
+def isValidClaim(claim):
+  for i in range(claim["x"], claim["x"] + claim["w"]):
+    for j in range(claim["y"], claim["y"] + claim["h"]):
+      coord = f"{i},{j}"
+      if coord in doubleseen.keys():
+        return False
+  return True
+  
+def findValidClaimNumber(claims):
+  for k,claim in claims.items():
+    if isValidClaim(claim):
+      return k
+
+print(f"The valid claim number is {findValidClaimNumber(claims)}")
