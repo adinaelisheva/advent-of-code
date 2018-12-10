@@ -16,7 +16,7 @@ def reduce(line):
 
 print(f"final line length is {reduce(line)}")
 
-#part 2
+#part 2 - this is a bit slow but it works.
 minlen = len(line)
 minchar = None
 for c1 in list(string.ascii_lowercase):
