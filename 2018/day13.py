@@ -3,7 +3,7 @@ import sys
 
 numArgs = len(sys.argv)
 display = True if numArgs > 1 and sys.argv[1] == "--display" else False
-sleepAmt = int(sys.argv[2]) if numArgs > 2 else 0
+sleepAmt = float(sys.argv[2]) if numArgs > 2 else 0
 
 global cartmap
 cartmap = []
@@ -66,14 +66,12 @@ def turnCart(track, cart):
       cart["c"] =  "^"
     elif cart["c"] == ">":
       cart["c"] =  "v"
-  
-  return cart["c"]
 
 def advanceCart(cart):
   global cartmap
   newCartPos = shiftCart(cart)
   nextSpot = cartmap[newCartPos[0]][newCartPos[1]]
-  newCartDir = turnCart(nextSpot, cart)
+  turnCart(nextSpot, cart)
   cart["x"] = newCartPos[0]
   cart["y"] = newCartPos[1]
   return cart
@@ -87,9 +85,8 @@ def printMap():
     for (y,t) in enumerate(l):
       cartChar = None
       for c in carts:
-        if c["x"] == x and c["y"] == y:
+        if c["x"] == x and c["y"] == y and (not cartChar == "X"): # X cannot be overwritten
           cartChar = c["c"]
-          break
       line += cartChar if cartChar else t
     toPrint += f"{line}\n"
   print(toPrint)
@@ -101,8 +98,8 @@ def findCollision(carts):
   for c in carts:
     coords = (c["x"], c["y"])
     if coords in seen:
-      cartmap[c["x"]][c["y"]] = "*"
-      return coords
+      c["c"] = "X"
+      return (coords[1], coords[0]) # my X and Y are backwards
     else:
       seen.add(coords)
   return None
