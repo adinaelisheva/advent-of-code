@@ -42,13 +42,27 @@ def turnCart(track, cart):
     cart["turns"] += 1
     if turns == 0:
       #turn left
-      track = "\\"
+      if cart["c"] == "^":
+        cart["c"] =  "<"
+      elif cart["c"] == "v":
+        cart["c"] =  ">"
+      elif cart["c"] == "<":
+        cart["c"] =  "v"
+      elif cart["c"] == ">":
+        cart["c"] =  "^"
     elif turns == 2:
       #turn right
-      track = "/"
+      if cart["c"] == "^":
+        cart["c"] =  ">"
+      elif cart["c"] == "v":
+        cart["c"] =  "<"
+      elif cart["c"] == "<":
+        cart["c"] =  "^"
+      elif cart["c"] == ">":
+        cart["c"] =  "v"
     # else go straight aka do nothing
 
-  if track == "/":
+  elif track == "/":
     if cart["c"] == "^":
       cart["c"] =  ">"
     elif cart["c"] == "v":
@@ -93,24 +107,48 @@ def printMap():
 
 printMap()
 
-def findCollision(carts):
-  seen = set()
+def findCollision(carts, curCart):
   for c in carts:
-    coords = (c["x"], c["y"])
-    if coords in seen:
-      c["c"] = "X"
-      return (coords[1], coords[0]) # my X and Y are backwards
-    else:
-      seen.add(coords)
+    if curCart == c:
+      continue
+    if c["x"] == curCart["x"] and c["y"] == curCart["y"]:
+      return c
   return None
 
-collided = None
-while not collided:
+def getCartKey(cart):
+  xPadding = ""
+  cartX = cart["x"]
+  cartY = cart["y"]
+  if cartX < 10:
+    xPadding = "00"
+  elif cartX < 100:
+    xPadding = "0"
+  yPadding = ""
+  if cartY < 10:
+    yPadding = "00"
+  elif cartY < 100:
+    yPadding = "0"
+  return f"{yPadding}{cartY},{xPadding}{cartX}"
+
+firstCollision = None
+while len(carts) > 1:
+  carts = sorted(carts,key=getCartKey)
+  toRemove = []
   for (i,c) in enumerate(carts):
     carts[i] = advanceCart(c)
-  collided = findCollision(carts)
+    collided = findCollision(carts,c)
+    if collided:
+      if not firstCollision:
+        firstCollision = (c["y"], c["x"]) #my X and Y are backwards
+      toRemove.append(c)
+      toRemove.append(collided)
+  for r in toRemove:
+    carts.remove(r)
   if (display):
     printMap()
   time.sleep(sleepAmt)
 
-print(f"Location of first collision is {collided}")
+print(f"Location of first collision is {firstCollision}")
+cartY = carts[0]["y"]
+cartX = carts[0]["x"]
+print(f"Location of last cart is ({cartY},{cartX})")
