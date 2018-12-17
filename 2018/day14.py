@@ -16,7 +16,7 @@ while True:
     length = len(scores)
 
     if not seqFound and length > seqLength:
-      subSeq = "".join([str(i) for i in scores[length - seqLength:]])
+      subSeq = "".join([str(i) for i in scores[-seqLength:]])
       if subSeq == scoreSequence:
         seqFound = length - seqLength
   
