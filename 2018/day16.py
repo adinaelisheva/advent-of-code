@@ -14,28 +14,30 @@ samples = []
 program = []
 
 # Parse the file:
+lines = None
 with open("day16data") as f:
   lines = f.readlines()
-  s = None
-  inSample = False
-  for l in lines:
-    l = l.strip()
-    if l.startswith("Before:"):
-      s = sample()
-      s.before = [int(x) for x in l[9:19].split(", ")]
-      inSample = True
-    elif l.startswith("After:"):
-      s.after = [int(x) for x in l[9:19].split(", ")]
-      samples.append(s)
-      inSample = False
-    elif inSample and len(l) > 0:
-      args = l.split(" ")
-      s.op = int(args[0])
-      s.arg1 = int(args[1])
-      s.arg2 = int(args[2])
-      s.out = int(args[3])
-    elif len(l) > 0:
-      program.append([int(x) for x in l.split(" ")])
+
+s = None
+inSample = False
+for l in lines:
+  l = l.strip()
+  if l.startswith("Before:"):
+    s = sample()
+    s.before = [int(x) for x in l[9:19].split(", ")]
+    inSample = True
+  elif l.startswith("After:"):
+    s.after = [int(x) for x in l[9:19].split(", ")]
+    samples.append(s)
+    inSample = False
+  elif inSample and len(l) > 0:
+    args = l.split(" ")
+    s.op = int(args[0])
+    s.arg1 = int(args[1])
+    s.arg2 = int(args[2])
+    s.out = int(args[3])
+  elif len(l) > 0:
+    program.append([int(x) for x in l.split(" ")])
 
 opcodes = {}
 
