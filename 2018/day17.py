@@ -1,6 +1,6 @@
 import time
 
-xOffset = 450
+xOffset = 400 #note: xmin is 413
 xTotal = 500
 spring = (0, 500-xOffset)
 
@@ -81,6 +81,12 @@ def printGrid(curR, curC, char = "*", sub=False):
   if delay:
     time.sleep(delay)
 
+count = 0
+with open("day17out") as f:
+  for l in f.readlines():
+    count += l.count("=")
+print(f"{count} tiles have been touched")
+
 def touch(r,c):
   global grid
   if grid[r][c] == ".":
@@ -98,7 +104,7 @@ def countWater(yMin, yMax):
 # now simulate the water
 starts = [[spring[0], spring[1]]]
 reset = True
-while True:
+for _ in range(1000):
   count = countWater(yMin, yMax)
   if breakpoint:
     print(breakpoint - count)
@@ -163,7 +169,6 @@ while True:
       grid[wr][x] = "~"
     printGrid(wr,x,"*",sub=True)
 
-printGrid(0,0)
 
 # now count
 print(f"{countWater(yMin, yMax)} tiles have been touched")
