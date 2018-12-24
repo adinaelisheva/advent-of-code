@@ -37,11 +37,3 @@ def countInRange(x,y,z,r=None):
   return inRange
 
 print(f"{countInRange(maxBot.x, maxBot.y, maxBot.z, maxBot.r)} robots are in range of maxBot")
-
-ranges = {}
-for i in range(1,100):
-  for j in range(1,100):
-    for k in range(1,100):
-      ranges[(i,j,k)] = countInRange(i,j,k)
-
-print(ranges)
