@@ -5,7 +5,7 @@ xTotal = 500
 spring = (0, 500-xOffset)
 
 global shouldPrint
-shouldPrint = True
+shouldPrint = False
 delay = 0.1
 breakpoint = None
 
@@ -85,7 +85,7 @@ count = 0
 with open("day17out") as f:
   for l in f.readlines():
     count += l.count("=")
-print(f"{count} tiles have been touched")
+print(f"By hand: {count} tiles have been touched")
 
 def touch(r,c):
   global grid
@@ -101,74 +101,75 @@ def countWater(yMin, yMax):
         total += 1
   return total
 
-# now simulate the water
-starts = [[spring[0], spring[1]]]
-reset = True
-for _ in range(1000):
-  count = countWater(yMin, yMax)
-  if breakpoint:
-    print(breakpoint - count)
-    if count == breakpoint:
-      shouldPrint = True
-  else:
-    print(count)
-  if reset == True:
-    start = starts.pop()
-    reset = False
-  wr = start[0]
-  wc = start[1]
-  while grid[wr][wc] == "~":
-    #start above the water line
-    wr -= 1
-  #first go down as far as you can
-  while wr < len(grid)-1 and grid[wr+1][wc] != "#" and grid[wr+1][wc] != "~":
-    touch(wr,wc)
-    printGrid(wr,wc,"*",sub=True)
-    wr += 1
-  if wr == yMax:
-    #fell off the bottom of the grid
-    touch(wr,wc)
-    if len(starts) > 0:
-      reset = True
-      continue
+if shouldPrint:
+  # now simulate the water
+  starts = [[spring[0], spring[1]]]
+  reset = True
+  for _ in range(1000):
+    count = countWater(yMin, yMax)
+    if breakpoint:
+      print(breakpoint - count)
+      if count == breakpoint:
+        shouldPrint = True
     else:
+      print(count)
+    if reset == True:
+      start = starts.pop()
+      reset = False
+    wr = start[0]
+    wc = start[1]
+    while grid[wr][wc] == "~":
+      #start above the water line
+      wr -= 1
+    #first go down as far as you can
+    while wr < len(grid)-1 and grid[wr+1][wc] != "#" and grid[wr+1][wc] != "~":
+      touch(wr,wc)
       printGrid(wr,wc,"*",sub=True)
-      break
+      wr += 1
+    if wr == yMax:
+      #fell off the bottom of the grid
+      touch(wr,wc)
+      if len(starts) > 0:
+        reset = True
+        continue
+      else:
+        printGrid(wr,wc,"*",sub=True)
+        break
 
-  #now check if you're in a bowl
-  leftwall = None
-  rightwall = None
-  i = wc
-  while i > 0:
-    printGrid(wr,i,"?",sub=True)
-    touch(wr,i)
-    if grid[wr+1][i] != '#' and grid[wr+1][i] != '~':
-      # found a hole in the floor - next time start here
-      starts.append([wr,i])
-      reset = True
-      break
-    if grid[wr][i-1] == '#':
-      leftwall = i
-      break
-    i-=1
-  i = wc
-  while i < xTotal-1:
-    printGrid(wr,i,"?",sub=True)
-    touch(wr,i)
-    if grid[wr+1][i] != '#' and grid[wr+1][i] != '~':
-      # found a hole in the floor
-      starts.append([wr,i])
-      reset = True
-      break
-    if grid[wr][i+1] == '#':
-      rightwall = i
-      break
-    i+=1
-  if leftwall and rightwall:
-    for x in range(leftwall, rightwall+1):
-      grid[wr][x] = "~"
-    printGrid(wr,x,"*",sub=True)
+    #now check if you're in a bowl
+    leftwall = None
+    rightwall = None
+    i = wc
+    while i > 0:
+      printGrid(wr,i,"?",sub=True)
+      touch(wr,i)
+      if grid[wr+1][i] != '#' and grid[wr+1][i] != '~':
+        # found a hole in the floor - next time start here
+        starts.append([wr,i])
+        reset = True
+        break
+      if grid[wr][i-1] == '#':
+        leftwall = i
+        break
+      i-=1
+    i = wc
+    while i < xTotal-1:
+      printGrid(wr,i,"?",sub=True)
+      touch(wr,i)
+      if grid[wr+1][i] != '#' and grid[wr+1][i] != '~':
+        # found a hole in the floor
+        starts.append([wr,i])
+        reset = True
+        break
+      if grid[wr][i+1] == '#':
+        rightwall = i
+        break
+      i+=1
+    if leftwall and rightwall:
+      for x in range(leftwall, rightwall+1):
+        grid[wr][x] = "~"
+      printGrid(wr,x,"*",sub=True)
 
 
-# now count
-print(f"{countWater(yMin, yMax)} tiles have been touched")
+  # now count
+  print(f"{countWater(yMin, yMax)} tiles have been touched")
