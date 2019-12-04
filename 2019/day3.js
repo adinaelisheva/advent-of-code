@@ -49,10 +49,12 @@ function updateCrossings(steps) {
   } 
 }
 
+let steps = 0;
 wire2.forEach((inst) => {
   let [amt, xy, incr] = parseInstruction(inst);
   for(let i = 0; i < amt; i++) {
-    updateCrossings(i);
+    steps++;
+    updateCrossings(steps);
     pos[xy] += incr;
   }
 });
@@ -66,4 +68,6 @@ crossings.forEach((c) => {
   }
 });
 console.log(crossings);
-console.log(`Minimum distance is ${minDist}`);
+console.log(`Minimum manhattan distance is ${minDist}`);
+
+minDist = Infinity;
