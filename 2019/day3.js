@@ -29,11 +29,10 @@ function parseInstruction(inst) {
 }
 
 let pos = [0,0];
-let instNum = 0;
 wire1.forEach((inst) => {
   let [amt, xy, incr] = parseInstruction(inst);
   for(let i = 0; i < amt; i++) {
-    seenSpots[hash(pos)] = true;
+    seenSpots[hash(pos)] = i;
     pos[xy] += incr;
   }
 });
@@ -42,19 +41,18 @@ seenSpots[hash(pos)] = true;
 let crossings = [];
 pos = [0,0];
 
-function updateCrossings() {
+function updateCrossings(steps) {
   const hashStr = hash(pos);
   // 0,0 doesn't count as a crossing
   if (seenSpots[hashStr] && hashStr !== '0,0') {
-    crossings.push([pos[0], pos[1]]);
+    crossings.push([pos[0], pos[1], steps + seenSpots[hashStr]]);
   } 
 }
 
-instNum = 0;
 wire2.forEach((inst) => {
   let [amt, xy, incr] = parseInstruction(inst);
   for(let i = 0; i < amt; i++) {
-    updateCrossings();
+    updateCrossings(i);
     pos[xy] += incr;
   }
 });
