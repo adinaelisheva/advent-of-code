@@ -29,10 +29,12 @@ function parseInstruction(inst) {
 }
 
 let pos = [0,0];
+let steps = 0;
 wire1.forEach((inst) => {
   let [amt, xy, incr] = parseInstruction(inst);
   for(let i = 0; i < amt; i++) {
-    seenSpots[hash(pos)] = i;
+    seenSpots[hash(pos)] = steps;
+    steps++;
     pos[xy] += incr;
   }
 });
@@ -49,25 +51,31 @@ function updateCrossings(steps) {
   } 
 }
 
-let steps = 0;
+steps = 0;
 wire2.forEach((inst) => {
   let [amt, xy, incr] = parseInstruction(inst);
   for(let i = 0; i < amt; i++) {
-    steps++;
     updateCrossings(steps);
+    steps++;
     pos[xy] += incr;
   }
 });
-updateCrossings();
+updateCrossings(steps);
 
-minDist = Infinity;
+let minMDist = Infinity;
+let minSDist = Infinity;
 crossings.forEach((c) => {
   const dist = Math.abs(c[0]) + Math.abs(c[1]);
-  if (dist < minDist) {
-    minDist = dist;
+  if (dist < minMDist) {
+    minMDist = dist;
+  }
+  if (c[2] < minSDist) {
+    minSDist = c[2];
   }
 });
-console.log(crossings);
-console.log(`Minimum manhattan distance is ${minDist}`);
 
-minDist = Infinity;
+console.log(crossings);
+console.log(`Minimum manhattan distance is ${minMDist}`);
+console.log(`Minimum signal distance is ${minSDist}`);
+
+minMDist = Infinity;

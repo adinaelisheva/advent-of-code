@@ -1,2 +1,6 @@
 *.txt
+<<<<<<< HEAD
 .vscode/*
+=======
+.vscode
+>>>>>>> f068e44ef97cc7988f6df9aad2feb3f09876db17
