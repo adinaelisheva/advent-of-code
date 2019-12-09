@@ -1,5 +1,4 @@
-// const input = [3,8,1001,8,10,8,105,1,0,0,21,30,47,60,81,102,183,264,345,426,99999,3,9,1002,9,5,9,4,9,99,3,9,1002,9,5,9,1001,9,4,9,1002,9,4,9,4,9,99,3,9,101,2,9,9,1002,9,4,9,4,9,99,3,9,1001,9,3,9,1002,9,2,9,101,5,9,9,1002,9,2,9,4,9,99,3,9,102,4,9,9,101,4,9,9,1002,9,3,9,101,2,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,99,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,1,9,9,4,9,99];
-const input = [3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5];
+const input = [3,8,1001,8,10,8,105,1,0,0,21,30,47,60,81,102,183,264,345,426,99999,3,9,1002,9,5,9,4,9,99,3,9,1002,9,5,9,1001,9,4,9,1002,9,4,9,4,9,99,3,9,101,2,9,9,1002,9,4,9,4,9,99,3,9,1001,9,3,9,1002,9,2,9,101,5,9,9,1002,9,2,9,4,9,99,3,9,102,4,9,9,101,4,9,9,1002,9,3,9,101,2,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,1,9,4,9,99,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,1,9,9,4,9,99];
 
 function run(inputVals) {
   const program = [...input];
@@ -86,10 +85,9 @@ for(let i = 0; i < 5; i++) {
 console.log(`Maximum is ${max}`);
 
 // part 2
-let lastRunOutput;
-
+let lastOutput;
 function runPartial(program, ip, inputVals) {
-  console.log(`running with ip=${ip} and inputs ${inputVals}`);
+  // console.log(`running with ip=${ip} and inputs ${inputVals}`);
   let outputs = [];
   while (program[ip] !== 99) {
     let inst = `${program[ip]}`;
@@ -116,15 +114,16 @@ function runPartial(program, ip, inputVals) {
         advAmt = 2;
         if (inputVals.length === 0) {
           // Need INPUT
+          // console.log('Need input - pausing');
           return [program, ip, outputs];
         }
         program[a] = inputVals.shift();
-        console.log(`inputting ${program[a]}`);
+        // console.log(`inputting ${program[a]}`);
         break;
       case 4:
         advAmt = 2;
-        console.log(`outputting ${program[a]}`);
-        lastRunOutput = program[a];
+        // console.log(`outputting ${program[a]}`);
+        lastOutput = program[a];
         outputs.push(program[a]);
         break;
       case 5:
@@ -155,30 +154,32 @@ function runPartial(program, ip, inputVals) {
     }
     ip += advAmt;
   }
+  return [null, null, outputs];
 }
 
 function runFeedbackLoop(phs1, phs2, phs3, phs4, phs5) {
-  console.log(`running feedback loop with phases [${phs1},${phs2},${phs3},${phs4},${phs5}]`);
+  // console.log(`\n\n\n\n\nrunning feedback loop with phases [${phs1},${phs2},${phs3},${phs4},${phs5}]`);
   let programs = [[...input], [...input], [...input], [...input], [...input]];
   let ips = [0,0,0,0,0];
   let outputs = [[phs2], [phs3], [phs4], [phs5], [phs1, 0]];
   let finished = false;
 
   const tryPartialRun = (i) => {
-    let prevRunIndex = i-1;
-    prevRunIndex = prevRunIndex < 0 ? 4 : prevRunIndex;
+    const prevRunIndex = i-1 < 0 ? 4 : i-1;
     if (outputs[prevRunIndex].length === 0) {
       // nothing to run on
       return;
     }
-    console.log(`\n\ntrying partial run ${i}.`);
+    // console.log(`\n\ntrying partial run ${i}.`);
     const result = runPartial(programs[i], ips[i], outputs[prevRunIndex]);
-    if (result) {
+    if (result[0]) {
       programs[i] = result[0];
       ips[i] = result[1];
       outputs[i] = outputs[i].concat(result[2]);
-      console.log(`returned ip of ${ips[i]} and output [${outputs[i]}]`);
+      // console.log(`paused with ip of ${ips[i]} and output [${outputs[i]}]`);
     } else {
+      outputs[i] = outputs[i].concat(result[2]);
+      // console.log(`Halted with output [${outputs[i]}]`);
       finished = true;
     }
   }
@@ -188,26 +189,21 @@ function runFeedbackLoop(phs1, phs2, phs3, phs4, phs5) {
       tryPartialRun(i);
     }
   }
-  console.log(`last output was ${lastRunOutput}`);
 }
 
-runFeedbackLoop(9,7,8,5,6);
-console.log(lastRunOutput);
-
-// max = 0;
-// for(let i = 5; i < 10; i++) {
-//   for(let j = 5; j < 10; j++) {
-//     if (j === i) { continue; }
-//     for(let k = 5; k < 10; k++) {
-//       if (k === i || k === j) { continue; }
-//       for(let l = 5; l < 10; l++) {
-//         if (l === i || l === j || l === k) { continue; }
-//         let m = 35 - (i + j + k + l);
-//         runFeedbackLoop(i, j, k, l, m);
-//         if (lastRunOutput > max) { max = lastRunOutput; }
-//         lastRunOutput = 0;
-//       }
-//     }
-//   }
-// }
-// console.log(`Feedback loop yields max of ${max}`);
+max = 0;
+for(let i = 5; i < 10; i++) {
+  for(let j = 5; j < 10; j++) {
+    if (j === i) { continue; }
+    for(let k = 5; k < 10; k++) {
+      if (k === i || k === j) { continue; }
+      for(let l = 5; l < 10; l++) {
+        if (l === i || l === j || l === k) { continue; }
+        let m = 35 - (i + j + k + l);
+        runFeedbackLoop(i, j, k, l, m);
+        if (lastOutput > max) { max = lastOutput; }
+      }
+    }
+  }
+}
+console.log(`Feedback loop yields max of ${max}`);
