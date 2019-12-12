@@ -20,7 +20,7 @@ function run(inputVals) {
 
     let valA = modes[0] === IMM_MODE ? a : (modes[0] === REL_MODE ? program[a + relativeBase] : program[a]);
     let valB = modes[1] === IMM_MODE ? b : (modes[1] === REL_MODE ? program[b + relativeBase] : program[b]);
-    let indexC = modes[0] === IMM_MODE ? c : c + relativeBase;
+    let indexC = modes[2] === REL_MODE ? c + relativeBase : c;
     valA = valA ? valA : 0;
     valB = valB ? valB : 0;
 
