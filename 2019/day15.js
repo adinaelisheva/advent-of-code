@@ -37,6 +37,7 @@ let backtracking = false;
 let showSimulation = false;
 let oxygenPos = [];
 let oxygenSteps;
+let spots;
 
 function getDirArr(dir) {
   switch (dir) {
@@ -80,7 +81,7 @@ function getDirForPos(pos) {
 }
 
 function drawMap() {
-  console.log('\n');
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
   console.log(`${backtracking ? 'BACKTRACKING...' : '\n'}\n`)
   for (let i = minX; i <= maxX; i++) {
     let row = '';
@@ -226,20 +227,12 @@ async function run() {
   }
 }
 
-showSimulation = false;
-run();
-console.log(oxygenPos);
-drawMap();
-console.log(`Found oxygen after ${oxygenSteps} steps!`);
-
-
-// Part 2
-backtracking = false;
-// Erase the robot
-const robotKey = `${robotPos[0]},${robotPos[1]}`;
-map[robotKey] = '.';
-
-let spots = [[...oxygenPos]];
+async function runStep1() {
+  showSimulation = true;
+  await run();
+  drawMap();
+  console.log(`Found oxygen after ${oxygenSteps} steps!`);
+}
 
 function step() {
   const newSpots = []
@@ -262,12 +255,19 @@ function step() {
   spots = [...newSpots];
 }
 async function runStep2() {
+  backtracking = false;
+  // Erase the robot
+  const robotKey = `${robotPos[0]},${robotPos[1]}`;
+  map[robotKey] = '.';
+
+  spots = [[...oxygenPos]];
+
   let i = 0;
   while(spots.length > 0) {
     step();
     if (showSimulation) {
       drawMap();
-      await sleep(200);
+      await sleep(100);
     }
     i++;
   }
@@ -276,5 +276,9 @@ async function runStep2() {
   console.log(`Oxygen fills the area after ${i-1} minutes`);
 }
 
-showSimulation = true;
-runStep2();
+async function runDay15() {
+  await runStep1();
+  await runStep2();
+}
+
+runDay15();
