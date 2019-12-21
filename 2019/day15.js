@@ -80,7 +80,7 @@ function getDirForPos(pos) {
 }
 
 function drawMap() {
-  console.log('\n\n\n\n\n\n\n\n');
+  console.log('\n');
   console.log(`${backtracking ? 'BACKTRACKING...' : '\n'}\n`)
   for (let i = minX; i <= maxX; i++) {
     let row = '';
@@ -231,3 +231,50 @@ run();
 console.log(oxygenPos);
 drawMap();
 console.log(`Found oxygen after ${oxygenSteps} steps!`);
+
+
+// Part 2
+backtracking = false;
+// Erase the robot
+const robotKey = `${robotPos[0]},${robotPos[1]}`;
+map[robotKey] = '.';
+
+let spots = [[...oxygenPos]];
+
+function step() {
+  const newSpots = []
+  spots.forEach((spot) => {
+    let checkSpots = [
+      [spot[0] - 1, spot[1]], 
+      [spot[0] + 1, spot[1]], 
+      [spot[0], spot[1] - 1], 
+      [spot[0], spot[1] + 1], 
+    ];
+    checkSpots.forEach((spotToCheck) => {
+      const key = `${spotToCheck[0]},${spotToCheck[1]}`;
+      if (map[key] === '.') {
+        map[key] = 'O';
+        newSpots.push(spotToCheck);
+      }
+    });
+  })
+
+  spots = [...newSpots];
+}
+async function runStep2() {
+  let i = 0;
+  while(spots.length > 0) {
+    step();
+    if (showSimulation) {
+      drawMap();
+      await sleep(200);
+    }
+    i++;
+  }
+  drawMap();
+  // Note - off by one error because it waits a full round to be sure it's finished
+  console.log(`Oxygen fills the area after ${i-1} minutes`);
+}
+
+showSimulation = true;
+runStep2();
