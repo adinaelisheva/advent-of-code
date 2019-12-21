@@ -1,4 +1,7 @@
 // Stored here since I use it in so many days
+const POS_MODE = '0'; // val = position in array
+const IMM_MODE = '1'; // val = value. will never be used for params it writes to
+const REL_MODE = '2'; // val = position in array + relative base
 
 function run() {
   const program = [...input];
@@ -36,6 +39,7 @@ function run() {
         break;
       case 4:
         // output
+        advAmt = 2;
         console.log(valA);
         break;
       case 5:
