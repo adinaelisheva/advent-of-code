@@ -3,7 +3,7 @@ const POS_MODE = '0'; // val = position in array
 const IMM_MODE = '1'; // val = value. will never be used for params it writes to
 const REL_MODE = '2'; // val = position in array + relative base
 
-function run() {
+function run(inputVals) {
   const program = [...input];
   let relativeBase = 0;
   let ip = 0;
@@ -35,7 +35,7 @@ function run() {
         // input
         advAmt = 2;
         let index = modes[0] === REL_MODE ? a + relativeBase : a;
-        program[index] = input;
+        program[index] = inputVals.shift();
         break;
       case 4:
         // output
