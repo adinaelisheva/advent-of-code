@@ -3,11 +3,18 @@ const POS_MODE = '0'; // val = position in array
 const IMM_MODE = '1'; // val = value. will never be used for params it writes to
 const REL_MODE = '2'; // val = position in array + relative base
 
-function run() {
+function run(setCode, inputVals) {
   const program = [...input];
+  if (setCode) {
+    program[0] = setCode;
+  }
   let relativeBase = 0;
   let ip = 0;
-  let output = "";
+  let output = '';
+  let outputtedVals = '';
+  let asciiInput = [];
+  let inputtedVals = '';
+  let lastOutput;
   while (program[ip] !== 99) {
     let inst = `${program[ip]}`;
     let opcode = inst.length === 1 ? Number(inst) : Number(inst.substr(-2));
@@ -36,12 +43,30 @@ function run() {
         // input
         advAmt = 2;
         let index = modes[0] === REL_MODE ? a + relativeBase : a;
-        program[index] = input;
+        let inputChar = inputVals.shift();
+        if (inputChar === '\n') {
+          console.log(inputtedVals);
+          console.log(asciiInput);
+          inputtedVals = '';
+          asciiInput = [];
+        } else {
+          inputtedVals += inputChar;
+          asciiInput.push(inputChar.charCodeAt(0));
+        }
+        program[index] = inputChar.charCodeAt(0);
         break;
       case 4:
         // output
         advAmt = 2;
-        output += String.fromCharCode(valA);
+        let outputChar = String.fromCharCode(valA);
+        output += outputChar;
+        if (outputChar === '\n') {
+          console.log(`> ${outputtedVals}`);
+          outputtedVals = "";
+        } else {
+          outputtedVals += outputChar;
+        }
+        lastOutput = valA;
         break;
       case 5:
         if (valA) {
@@ -75,10 +100,10 @@ function run() {
     }
     ip += advAmt;
   }
-  return output;
+  return setCode ? lastOutput : output;
 }
 
-const mapStr = run()
+const mapStr = run();
 console.log(mapStr);
 
 let map = [];
@@ -110,11 +135,6 @@ for (let i = 0; i < map.length; i++) {
   }
 }
 console.log(`Sum of alignment parameters: ${sum}`);
-let str = "";
-map.forEach((row) => {
-  str += `${row.join('')}\n`;
-});
-// console.log(str);
 
 let done = false;
 let robotDir = [-1,0]; // starts facing up
@@ -194,8 +214,13 @@ console.log(path);
 
 // Path is: 
 // L12,R8,L6,R8,L6,R8,L12,L12,R8,L12,R8,L6,R8,L6,L12,R8,L6,R8,L6,R8,L12,L12,R8,L6,R6,L12,R8,L12,L12,R8,L6,R6,L12,L6,R6,L12,R8,L12,L12,R8
+// so my three codes are:
+const A = 'L,12,R,8,L,6,R,8,L,6\n';
+const B = 'R,8,L,12,L,12,R,8\n';
+const C = 'L,6,R,6,L,12\n';
+const master = 'A,B,A,A,B,C,B,C,C,B\n';
 
-let A = [L,12,R,8,L,6,R,8,L,6];
-let B = [R,8,L,12,L,12,R,8];
-let C = [L,6,R,6,L,12];
-let master = [A, B, A, A, B, C, B, C, C, B];
+const program = master + A + B + C + 'n\n';
+
+const cleanAmt = run(2, program.split(''));
+console.log(`Robot cleaned ${cleanAmt}!!!`);
