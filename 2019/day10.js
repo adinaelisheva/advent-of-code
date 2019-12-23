@@ -1,5 +1,6 @@
-// const input = ['.#......##.#..#.......#####...#..','...#.....##......###....#.##.....','..#...#....#....#............###.','.....#......#.##......#.#..###.#.','#.#..........##.#.#...#.##.#.#.#.','..#.##.#...#.......#..##.......##','..#....#.....#..##.#..####.#.....','#.............#..#.........#.#...','........#.##..#..#..#.#.....#.#..','.........#...#..##......###.....#','##.#.###..#..#.#.....#.........#.','.#.###.##..##......#####..#..##..','.........#.......#.#......#......','..#...#...#...#.#....###.#.......','#..#.#....#...#.......#..#.#.##..','#.....##...#.###..#..#......#..##','...........#...#......#..#....#..','#.#.#......#....#..#.....##....##','..###...#.#.##..#...#.....#...#.#','.......#..##.#..#.............##.','..###........##.#................','###.#..#...#......###.#........#.','.......#....#.#.#..#..#....#..#..','.#...#..#...#......#....#.#..#...','#.#.........#.....#....#.#.#.....','.#....#......##.##....#........#.','....#..#..#...#..##.#.#......#.#.','..###.##.#.....#....#.#......#...','#.##...#............#..#.....#..#','.#....##....##...#......#........','...#...##...#.......#....##.#....','.#....#.#...#.#...##....#..##.#.#','.#.#....##.......#.....##.##.#.##'];
-const input = ['.#..##.###...#######','##.############..##.','.#.######.########.#','.###.#######.####.#.','#####.##.#.##.###.##','..#####..#.#########','####################','#.####....###.#.#.##','##.#################','#####.##.###..####..','..######..##.#######','####.##.####...##..#','.#####..#.######.###','##...#.##########...','#.##########.#######','.####.#.###.###.#.##','....##.##.###..#####','.#.#.###########.###','#.#.#.#####.####.###','###.##.####.##.#..##'];
+const input = ['.#......##.#..#.......#####...#..','...#.....##......###....#.##.....','..#...#....#....#............###.','.....#......#.##......#.#..###.#.','#.#..........##.#.#...#.##.#.#.#.','..#.##.#...#.......#..##.......##','..#....#.....#..##.#..####.#.....','#.............#..#.........#.#...','........#.##..#..#..#.#.....#.#..','.........#...#..##......###.....#','##.#.###..#..#.#.....#.........#.','.#.###.##..##......#####..#..##..','.........#.......#.#......#......','..#...#...#...#.#....###.#.......','#..#.#....#...#.......#..#.#.##..','#.....##...#.###..#..#......#..##','...........#...#......#..#....#..','#.#.#......#....#..#.....##....##','..###...#.#.##..#...#.....#...#.#','.......#..##.#..#.............##.','..###........##.#................','###.#..#...#......###.#........#.','.......#....#.#.#..#..#....#..#..','.#...#..#...#......#....#.#..#...','#.#.........#.....#....#.#.#.....','.#....#......##.##....#........#.','....#..#..#...#..##.#.#......#.#.','..###.##.#.....#....#.#......#...','#.##...#............#..#.....#..#','.#....##....##...#......#........','...#...##...#.......#....##.#....','.#....#.#...#.#...##....#..##.#.#','.#.#....##.......#.....##.##.#.##'];
+// const input = ['.#..##.###...#######','##.############..##.','.#.######.########.#','.###.#######.####.#.','#####.##.#.##.###.##','..#####..#.#########','####################','#.####....###.#.#.##','##.#################','#####.##.###..####..','..######..##.#######','####.##.####...##..#','.#####..#.######.###','##...#.##########...','#.##########.#######','.####.#.###.###.#.##','....##.##.###..#####','.#.#.###########.###','#.#.#.#####.####.###','###.##.####.##.#..##'];
+// const input = ['.#....#####...#..','##...##.#####..##','##...#...#.#####.','..#.....#...###..','..#.#.....#....##'];
 
 const output = [];
 for (let i = 0; i < input.length; i++) {
@@ -28,18 +29,18 @@ function countSlopesForPos(pos) {
       }
       const xDiff = x - pos[0];
       const yDiff = y - pos[1];
-      const slopeStr = Math.abs(xDiff / yDiff).toFixed(10);
-      if (xDiff >= 0 && yDiff <= 0) {
-        addToSlopes(q1, slopeStr, [x,y]);
+      const slopeRounded = Number(Math.abs(xDiff / yDiff).toFixed(10));
+      if (xDiff >= 0 && yDiff < 0) {
+        addToSlopes(q1, slopeRounded, [x,y]);
       }
-      if (xDiff >= 0 && yDiff > 0) {
-        addToSlopes(q2, slopeStr, [x,y], true);
+      if (xDiff >= 0 && yDiff >= 0) {
+        addToSlopes(q2, slopeRounded, [x,y], true);
       }
       if (xDiff < 0 && yDiff > 0) {
-        addToSlopes(q3, slopeStr, [x,y], true);
+        addToSlopes(q3, slopeRounded, [x,y], true);
       }
       if (xDiff < 0 && yDiff <= 0) {
-        addToSlopes(q4, slopeStr, [x,y]);
+        addToSlopes(q4, slopeRounded, [x,y]);
       }
     }
   }
@@ -56,7 +57,7 @@ for (let y = 0; y < input.length; y++) {
     } 
     const [q1, q2, q3, q4] = countSlopesForPos([x, y]);
     const count = Object.keys(q1).length + Object.keys(q2).length + Object.keys(q3).length + Object.keys(q4).length;
-    output[y][x] = count;
+    output[y][x] = `${count} `;
     if (count > bestCount) { 
       bestCount = count; 
       bestPos = `${x},${y}`;
@@ -71,28 +72,57 @@ for (let y = 0; y < output.length; y++) {
 console.log(`The best position (${bestPos}) found ${bestCount} distinct slopes`);
 
 // now... for LASERS
-let done = false;
 let [q1, q2, q3, q4] = bestSlopes;
 let lasered = 0;
 let lastLasered;
+const laserLimit = 200;
 function laser(quadrant, slope) {
   lastLasered = quadrant[slope].pop();
-  console.log(`Lasering ${lasered}: [${lastLasered}]`)
+  console.log(`Lasering #${lasered+1}: [${lastLasered}] at slope ${slope}`);
   lasered++;
   if (quadrant[slope].length === 0) {
     delete quadrant[slope];
   }
 }
-
-while(lasered < 200) {
-  let q1keys = Object.keys(q1).sort();
-  let q2keys = Object.keys(q2).sort().reverse();
-  let q3keys = Object.keys(q3).sort();
-  let q4keys = Object.keys(q4).sort().reverse();
-  q1keys.forEach((k) => laser(q1, k));
-  q2keys.forEach((k) => laser(q2, k));
-  q3keys.forEach((k) => laser(q3, k));
-  q4keys.forEach((k) => laser(q4, k));
+function laserList(q, keys) {
+  for(let k of keys) {
+    laser(q, k);
+    if (lasered === laserLimit) { 
+      break; 
+    }
+  };
 }
-console.log(`The 200th asteroid to be LASERED was ${lastLasered} - code is ${lastLasered[1]*100 + lastLasered[0]}`);
+
+function numberComp(a,b) {
+  a = Number(a);
+  b = Number(b);
+  return a > b ? 1 : b > a ? -1 : 0;
+}
+function numberCompReverse(a,b) {
+  a = Number(a);
+  b = Number(b);
+  return a > b ? -1 : b > a ? 1 : 0;
+}
+
+while(lasered < laserLimit) {
+  let q1keys = Object.keys(q1).sort(numberComp);
+  let q2keys = Object.keys(q2).sort(numberCompReverse);
+  let q3keys = Object.keys(q3).sort(numberComp);
+  let q4keys = Object.keys(q4).sort(numberCompReverse);
+  
+  console.log('--- Quadrant 1 ---');
+  laserList(q1, q1keys);
+  if (lasered === laserLimit) { break; }
+  console.log('--- Quadrant 2 ---');
+  laserList(q2, q2keys);
+  if (lasered === laserLimit) { break; }
+  console.log('--- Quadrant 3 ---');
+  laserList(q3, q3keys);
+  if (lasered === laserLimit) { break; }
+  console.log('--- Quadrant 4 ---');
+  laserList(q4, q4keys);
+}
+
+  
+console.log(`The ${laserLimit}th asteroid to be LASERED was ${lastLasered} - code is ${lastLasered[0]*100 + lastLasered[1]}`);
 
