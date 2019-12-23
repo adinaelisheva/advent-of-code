@@ -8,6 +8,9 @@ function run(inputVals) {
   const program = [...input];
   let relativeBase = 0;
   let ip = 0;
+  let outputtedVals = '';
+  let inputtedVals = '';
+  let finalOutput;
   while (program[ip] !== 99) {
     let inst = `${program[ip]}`;
     let opcode = inst.length === 1 ? Number(inst) : Number(inst.substr(-2));
@@ -36,12 +39,30 @@ function run(inputVals) {
         // input
         advAmt = 2;
         let index = modes[0] === REL_MODE ? a + relativeBase : a;
-        program[index] = inputVals.shift();
+        let inputChar = inputVals.shift();
+        if (inputChar === '\n') {
+          console.log(inputtedVals);
+          inputtedVals = '';
+          asciiInput = [];
+        } else {
+          inputtedVals += inputChar;
+        }
+        program[index] = inputChar.charCodeAt(0);
         break;
       case 4:
         // output
         advAmt = 2;
-        console.log(valA);
+        if (valA > 127) {
+          finalOutput = valA;
+        } else {
+          let outputChar = String.fromCharCode(valA);
+          if (outputChar === '\n') {
+            console.log(`> ${outputtedVals}`);
+            outputtedVals = "";
+          } else {
+            outputtedVals += outputChar;
+          }
+        }
         break;
       case 5:
         if (valA) {
@@ -75,4 +96,26 @@ function run(inputVals) {
     }
     ip += advAmt;
   }
+  if (outputtedVals) {
+    console.log(`> ${outputtedVals}`);
+  }
+  return finalOutput;
 }
+
+let program = `NOT C J
+AND D J
+NOT A T
+OR T J
+WALK\n`;
+
+console.log(run(program.split('')));
+
+program = `NOT C J
+AND D J
+NOT A T
+OR T J
+NOT D T
+AND H T
+AND T J
+RUN\n`;
+console.log(run(program.split('')));
