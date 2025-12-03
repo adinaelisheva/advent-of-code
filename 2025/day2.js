@@ -19,28 +19,22 @@ for (const range of INPUT_TO_USE) {
                 continue;
             }
         }
-        for (let i = 1; i <= numStr.length / 2; i++) {
+        outer: for (let i = 1; i <= numStr.length / 2; i++) {
             if (numStr.length % i !== 0) {
                 continue;
             }
-            const nums = [];
+            const numToMatch = numStr.substring(0,i);
             let numStrToConsume = `${numStr}`;
             while (numStrToConsume.length > 0) {
-                nums.push(numStrToConsume.substring(0,i));
+                if (numStrToConsume.substring(0,i) !== numToMatch) {
+                    continue outer;
+                }
                 numStrToConsume = numStrToConsume.substring(i);
             }
-            let allMatch = true;
-            for (const num of nums) {
-                if (num !== nums[0]) {
-                    allMatch = false;
-                    break;
-                }
-            }
-            if (allMatch) {
-                sumPt2 += id;
-                console.log(`${id} splits to ${i} ${nums[0]}s, adding ${id} for part 2 only`);
-                break;
-            }
+            // If we get here, the string is a set of repeated matches
+            sumPt2 += id;
+            console.log(`${id} splits to ${i} ${numToMatch}s, adding ${id} for part 2 only`);
+            break;
         }
     }
 }
