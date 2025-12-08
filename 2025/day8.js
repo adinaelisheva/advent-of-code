@@ -23,15 +23,20 @@ for (let i = 0; i < INPUT_TO_USE.length; i++) {
 distances.sort((a, b) => { return a[0] - b[0];});
 
 let connections = new Map();
+
+function addToConnections(key, val) {
+  if (connections.get(key)) {
+    connections.get(key).push(val);
+  } else {
+    connections.set(key, [val]);
+  }
+}
+
 for (let i = 0; i < 10; i++) {
   const p1 = distances[i][1];
   const p2 = distances[i][2];
-  const curSet = connections.get(`${p1}`);
-  if (!curSet) {
-    connections.set(`${p1}`, [`${p2}`]);
-  } else if (curSet.indexOf(`${p2}`) === -1) {
-    connections.get(`${p1}`).push(`${p2}`);
-  }
+  addToConnections(`${p1}`,`${p2}`);
+  addToConnections(`${p2}`,`${p1}`);
 }
 console.log(connections);
 
