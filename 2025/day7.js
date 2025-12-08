@@ -30,29 +30,26 @@ for (const str of INPUT_TO_USE) {
 console.log(`Split ${splits} times`);
 
 // Part 2
-// Paths = 'I:LRLRLR' where I is the current index of the beam and LRLRLR is the path history
-let timelines = new Set();
-timelines.add(`${INPUT_TO_USE[0].indexOf('S')}:S`);
-let i = 0;
+let beamCounts = Array(INPUT_TO_USE[0].length).fill(0);
+beamCounts[INPUT_TO_USE[0].indexOf('S')] = 1;
 for (const str of INPUT_TO_USE) {
-  console.log(`${i++}/${INPUT_TO_USE.length}`);
-  console.log(timelines.size);
   const row = str.split('');
-  const newTimelines = new Set();
-  for (const tStr of timelines) {
-    const info = tStr.split(':');
-    const curInd = Number(info[0]);
-    const path = info[1];
-    if (row[curInd] === '^') {
-      newTimelines.add(`${curInd-1}:${path+'L'}`);
-      newTimelines.add(`${curInd+1}:${path+'R'}`);
+  let newCounts = Array(INPUT_TO_USE[0].length).fill(0);
+  for (let i = 0; i < row.length; i++) {
+    if (beamCounts[i] === 0) {
+      continue; // No beams going in here
+    } else if (row[i] === '^') {
+      newCounts[i-1] += beamCounts[i];
+      newCounts[i+1] += beamCounts[i];
     } else {
-      newTimelines.add(`${curInd}:${path+'S'}`);
+      newCounts[i] += beamCounts[i];
     }
   }
-  timelines = newTimelines;
+  beamCounts = newCounts;
 }
-console.log(`Found ${timelines.size} timelines`);
+const total = beamCounts.reduce((acc, cur) => acc + cur, 0);
+console.log(`Found ${total} timelines`);
+
 
 /**
  * This would work but it's too big - "Maximum call stack size exceeded" :'(
@@ -70,4 +67,29 @@ function tracePath(path, curPos, rowInd) {
 }
 
 const paths = tracePath('S', INPUT_TO_USE[0].indexOf('S'), 1);
+*/
+
+/**
+// Take 2 - also too slow :(
+// Paths = 'I:LRLRLR' where I is the current index of the beam and LRLRLR is the path history
+let timelines = new Set();
+timelines.add(`${INPUT_TO_USE[0].indexOf('S')}:S`);
+let i = 0;
+for (const str of INPUT_TO_USE) {
+  const row = str.split('');
+  const newTimelines = new Set();
+  for (const tStr of timelines) {
+    const info = tStr.split(':');
+    const curInd = Number(info[0]);
+    const path = info[1];
+    if (row[curInd] === '^') {
+      newTimelines.add(`${curInd-1}:${path+'L'}`);
+      newTimelines.add(`${curInd+1}:${path+'R'}`);
+    } else {
+      newTimelines.add(`${curInd}:${path+'S'}`);
+    }
+  }
+  timelines = newTimelines;
+}
+console.log(`Found ${timelines.size} timelines`);
 */
