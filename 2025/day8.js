@@ -29,7 +29,9 @@ for (const box of INPUT_TO_USE) {
 }
 
 let i = 0;
-for (; i < 10; i++) {
+// Cheating a bit in that I know the test input is short
+const limit = INPUT_TO_USE.length > 20 ? 1000 : 10;
+for (; i < limit; i++) {
   const p1 = distances[i][1];
   const p2 = distances[i][2];
   connections.get(`${p1}`).push(`${p2}`);
