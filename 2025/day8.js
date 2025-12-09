@@ -23,49 +23,68 @@ for (let i = 0; i < INPUT_TO_USE.length; i++) {
 distances.sort((a, b) => { return a[0] - b[0];});
 
 let connections = new Map();
-
-function addToConnections(key, val) {
-  if (connections.get(key)) {
-    connections.get(key).push(val);
-  } else {
-    connections.set(key, [val]);
-  }
+// Prefill
+for (const box of INPUT_TO_USE) {
+  connections.set(`${box}`, []);
 }
 
-for (let i = 0; i < 1000; i++) {
+let i = 0;
+for (; i < 10; i++) {
   const p1 = distances[i][1];
   const p2 = distances[i][2];
-  addToConnections(`${p1}`,`${p2}`);
-  addToConnections(`${p2}`,`${p1}`);
+  connections.get(`${p1}`).push(`${p2}`);
+  connections.get(`${p2}`).push(`${p1}`);
 }
 
 // Flood fill
-let networks = [];
-
-while (connections.size > 0) {
-  let size = 0;
-  // Starting with the first remaining node, delete it and all its neighbors
-  let nodesToProcess = new Set();
-  nodesToProcess.add(connections.keys().next().value);
-  while (nodesToProcess.size > 0) {
-    let nextNodes = new Set();
-    for (const node of nodesToProcess) {
-      const neighbors = connections.get(`${node}`);
-      if (neighbors) {
-        for (const n of neighbors) {
-          nextNodes.add(n);
+function getNetworkSizes() {
+  const cons = structuredClone(connections);
+  let networks = [];
+  while (cons.size > 0) {
+    let size = 0;
+    // Starting with the first remaining node, delete it and all its neighbors
+    let nodesToProcess = new Set();
+    nodesToProcess.add(cons.keys().next().value);
+    while (nodesToProcess.size > 0) {
+      let nextNodes = new Set();
+      for (const node of nodesToProcess) {
+        const neighbors = cons.get(`${node}`);
+        if (neighbors) {
+          for (const n of neighbors) {
+            nextNodes.add(n);
+          }
+        }
+        if (cons.has(node)) {
+          cons.delete(node);
+          size++;
         }
       }
-      if (connections.has(node)) {
-        connections.delete(node);
-        size++;
-      }
+      nodesToProcess = nextNodes;
     }
-    nodesToProcess = nextNodes;
+    networks.push(size);
   }
-  networks.push(size);
+  return networks;
 }
 
+let networks = getNetworkSizes();
 networks.sort((a,b) => { return b-a; });
-console.log(`Found ${networks} networks`);
+console.log(`After 1000 connections: Found ${networks} networks`);
 console.log(`Largest 3's product is ${networks[0] * networks[1] * networks[2]}`);
+
+// Part 2
+// Keep adding connections
+let p1,p2;
+let lastSize = networks.length;
+while(networks.length > 1) {
+  p1 = distances[i][1];
+  p2 = distances[i][2];
+  connections.get(`${p1}`).push(`${p2}`);
+  connections.get(`${p2}`).push(`${p1}`);
+  networks = getNetworkSizes();
+  if (networks.length !== lastSize) {
+    lastSize = networks.length;
+    console.log(`${lastSize}...`);
+  }
+  i++;
+}
+console.log(`One network left - last 2 X's were ${p1[0]} * ${p2[0]} = ${p1[0]*p2[0]}`);
