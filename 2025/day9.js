@@ -17,21 +17,30 @@ for (let i = 0; i < INPUT_TO_USE.length - 1; i++) {
     if (area > maxArea) {
       maxArea = area;
     }
-    if (p1[0] < minX) { minX = p1[0]; }
-    if (p2[0] < minX) { minX = p2[0]; }
-    if (p1[1] < minY) { minY = p1[1]; }
-    if (p2[1] < minY) { minY = p2[1]; }
-    if (p1[0] > maxX) { maxX = p1[0]; }
-    if (p2[0] > maxX) { maxX = p2[0]; }
-    if (p1[1] > maxY) { maxY = p1[1]; }
-    if (p2[1] > maxY) { maxY = p2[1]; }
+    if (p1[0] < minY) { minY = p1[0]; }
+    if (p2[0] < minY) { minY = p2[0]; }
+    if (p1[1] < minX) { minX = p1[1]; }
+    if (p2[1] < minX) { minX = p2[1]; }
+    if (p1[0] > maxY) { maxY = p1[0]; }
+    if (p2[0] > maxY) { maxY = p2[0]; }
+    if (p1[1] > maxX) { maxX = p1[1]; }
+    if (p2[1] > maxX) { maxX = p2[1]; }
   }
 }
 console.log(`With just red tiles, largest area is ${maxArea}`);
 
 // Part 2
+// Add a buffer
+minX--;
+minY--;
+maxX++;
+maxY++
 const grid = new Map();
+const width = maxY - minY + 1;
+const height = maxX - minX + 1;
 
+// Our grid is only the size of the shape given
+// Convert between points given and points in the smaller space
 function gridSet(x, y, val) {
   // a single point was passed in
   if (x.length) {
@@ -68,9 +77,38 @@ for (let i = 0; i < INPUT_TO_USE.length; i++) {
 }
 
 if (INPUT_TO_USE.length < 100) {
-  for (let i = minY-1; i <= maxY; i++) {
+  for (let i = 0; i <= height; i++) {
     let row = '';
-    for (let j = minX-2; j <= maxX; j++) {
+    for (let j = 0; j <= width; j++) {
+      row += grid.get(`${i},${j}`) ?? '.';
+    }
+    console.log(row);
+  }
+}
+
+for (let r = 0; r <= height; r++) {
+  let inside = false;
+  let lastCol = false;
+  for (let c = 0; c <= width; c++) {
+    const val = grid.get(`${r},${c}`);
+    if (!val && inside) {
+      grid.set(`${r},${c}`, 'O');
+    }
+    else if (val === '#'){
+      inside = !inside;
+    } else if (val === 'X' && !lastCol) {
+      inside = !inside;
+    }
+    lastCol = !!val;
+  }
+}
+
+console.log('\n\n\n');
+
+if (INPUT_TO_USE.length < 100) {
+  for (let i = 0; i <= height; i++) {
+    let row = '';
+    for (let j = 0; j <= width; j++) {
       row += grid.get(`${i},${j}`) ?? '.';
     }
     console.log(row);
