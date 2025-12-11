@@ -40,12 +40,11 @@ function bordersCross(rectCorner1, rectCorner2) {
       continue;
     }
 
-    if ((p2[1] < r1[1] || p1[1] > r2[1]) || (p2[0] < r1[0] || p1[0] > r2[0])) {
+    if ((p2[1] <= r1[1] || p1[1] >= r2[1]) || (p2[0] <= r1[0] || p1[0] >= r2[0])) {
       // Line is outside entire rectangle; we're good
       continue;
     }
     // if we get here, we found an intersection! fail
-    console.log(`Line ${p1} -> ${p2} crosses rectangle ${r1} -> ${r2}`);
     return true;
   }
   return false;
@@ -71,4 +70,4 @@ for (let i = 0; i < INPUT_TO_USE.length - 1; i++) {
     }
   }
 }
-console.log(`With green tiles, largest area is ${maxArea}.`);
+console.log(`With green tiles, largest area is ${maxArea}`);
