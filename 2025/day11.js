@@ -52,6 +52,42 @@ if (INPUT_TO_USE[1]) {
   }
 }
 
+// returns an object as such: [blankPaths, dacPaths, fftPaths, bothPaths]
+const seenPaths = {};
+function findPathsFromNode(node) {
+  if (node === 'out') {
+    return [1,0,0,0];
+  }
+  let retPaths = [0, 0, 0, 0];
+  for (const n of graph[node]) {
+    if (!seenPaths[n]) {
+      seenPaths[n] = findPathsFromNode(n);
+    }
+    [blanks, dacs, ffts, boths] = seenPaths[n];
+    if (node === 'dac') {
+      boths = ffts + boths;
+      dacs = blanks;
+      blanks = ffts = 0;
+    } else if (node === 'fft') {
+      boths = dacs + boths;
+      ffts = blanks;
+      blanks = dacs = 0;
+    }
+    retPaths[0] += blanks;
+    retPaths[1] += dacs;
+    retPaths[2] += ffts;
+    retPaths[3] += boths;
+  }
+  return retPaths;
+}
+
+const finalPaths = findPathsFromNode('svr');
+const total = finalPaths[0] + finalPaths[1] + finalPaths[2] + finalPaths[3];
+console.log(`Found ${total} paths, of which ${finalPaths[3]} have both 'dac' and 'fft'`);
+
+/*** Non-working attempts ***/
+
+/** Tried squashing the graph by removing "chains" but this didn't help much. */
 // const nodesToSquash = {};
 // // For each node, find its "root" and replace it with that (deduplicating)
 // for (let node of Object.keys(graph)) {
@@ -87,6 +123,7 @@ if (INPUT_TO_USE[1]) {
 
 // console.log(graph);
 
+/** Tries memoization alone but paths being saved were too long and used too much memory. */
 // const savedPaths = {};
 // const loggedPaths = {};
 // nodesToTest = [];
@@ -144,36 +181,3 @@ if (INPUT_TO_USE[1]) {
 // console.log(`Found ${paths} paths from 'svr' to 'out'`);
 
 // seenPaths[node] = stats on paths that look like [node, blah, ..., out]
-
-// returns an object as such: [blankPaths, dacPaths, fftPaths, bothPaths]
-const seenPaths = {};
-function findPathsFromNode(node) {
-  if (node === 'out') {
-    return [1,0,0,0];
-  }
-  let retPaths = [0, 0, 0, 0];
-  for (const n of graph[node]) {
-    if (!seenPaths[n]) {
-      seenPaths[n] = findPathsFromNode(n);
-    }
-    [blanks, dacs, ffts, boths] = seenPaths[n];
-    if (node === 'dac') {
-      boths = ffts + boths;
-      dacs = blanks;
-      blanks = ffts = 0;
-    } else if (node === 'fft') {
-      boths = dacs + boths;
-      ffts = blanks;
-      blanks = dacs = 0;
-    }
-    retPaths[0] += blanks;
-    retPaths[1] += dacs;
-    retPaths[2] += ffts;
-    retPaths[3] += boths;
-  }
-  return retPaths;
-}
-
-const finalPaths = findPathsFromNode('svr');
-const total = finalPaths[0] + finalPaths[1] + finalPaths[2] + finalPaths[3];
-console.log(`Found ${total} paths, of which ${finalPaths[3]} have both 'dac' and 'fft'`);
